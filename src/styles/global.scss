@@ -1,0 +1,53 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100vh;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+
+  background: url("../images/background.webp");
+  background-attachment: fixed;
+  background-size: 100%;
+
+  @media (max-width: 992px) {
+    background-size: cover;
+  }
+
+  color: white;
+
+  a {
+    color: #56c5ff;
+  }
+}
+
+main {
+  width: 100%;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  p {
+    font-size: 1.5rem;
+  }
+
+  h1 {
+    background: -webkit-linear-gradient(0deg, #42a539 30%, #56c5ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 3rem;
+    font-variant: small-caps;
+    margin-bottom: 1.5rem;
+  }
+}
