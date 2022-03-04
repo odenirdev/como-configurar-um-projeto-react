@@ -305,7 +305,7 @@ import { App } from "./App"; // Componente App
 render(<App />, document.getElementById("root")); // Renderizando o componente App como filho do elemento HTML com o id root.
 ```
 
-Agora podemos criar o arquivo **App.jsx**, que nada mais é o ponto de partida da nossa aplicação React.
+E por fim podemos criar o arquivo **App.jsx**, que nada mais é o ponto de partida da nossa aplicação React.
 
 ```jsx
 import React from "react";
@@ -316,21 +316,6 @@ export const App = () => {
   return <h1>Hello React.js</h1>;
 };
 ```
-
-E por fim teremos uma estrutura de pastas parecida com a apresentada abaixo:
-
-📦project-name
-┣ 📂node_modules -- Pasta das dependências
-┣ 📂public -- Pasta dos arquivos públicos
-
-┃ ┗ 📜index.html -- Arquivo HTML raiz do projeto
-┣ 📂src -- Pasta de desenvolvimento do App
-┃ ┣ 📜App.jsx -- Arquivo JS raiz do App
-┃ ┗ 📜index.jsx -- Arquivo JS raiz do projeto
-┣ 📜babel.config.js -- Arquivo de configuração do babel
-┣ 📜webpack.config.js -- Arquivo de configuração do webpack
-┣ 📜package.json -- Arquivo de configuração do projeto
-┗ 📜README.md -- Arquivo de documentação do projeto
 
 Parabens dev!! Você aprendeu como funciona a configuração de uma aplicação profissional e escalável, utilizando React, Babel, Webpack, Sass e entre outras ferramentas.
 
