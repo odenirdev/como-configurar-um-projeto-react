@@ -321,7 +321,9 @@ E por fim teremos uma estrutura de pastas parecida com a apresentada abaixo:
 
 📦project-name
 ┣ 📂node_modules -- Pasta das dependências
+
 ┣ 📂public -- Pasta dos arquivos públicos
+
 ┃ ┗ 📜index.html -- Arquivo HTML raiz do projeto
 ┣ 📂src -- Pasta de desenvolvimento do App
 ┃ ┣ 📜App.jsx -- Arquivo JS raiz do App
