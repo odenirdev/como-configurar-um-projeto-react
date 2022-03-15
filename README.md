@@ -138,10 +138,18 @@ Caso queria utilizar algum framework css para melhorar a experiência de estiliz
 yarn add node-sass sass-loader -D
 ```
 
-E pronto finalizamos a parte dos loaders, agora podemos seguir instalando a lib html-webpack-plugin que tem como objetivo configurar a injetação do arquivo bundle.js gerado pelo webpack em um arquivo desejado, neste caso no public/index.html.
+E pronto finalizamos a parte dos loaders, agora podemos seguir instalando alguns plugins.
+
+Primeiro vamos instalar o html-webpack-plugin que tem como objetivo configurar a injetação do arquivo bundle.js gerado pelo webpack em um arquivo desejado, neste caso no public/index.html.
 
 ```bash
 yarn add html-webpack-plugin -D
+```
+
+Depois o plugin React Refresh que irá nos ajudar mantendo os estados dos componentes quando a aplicação de atualizar.
+
+```bash
+yarn add @pmmmwh/react-refresh-webpack-plugin react-refresh -D
 ```
 
 Para finalizar as instalações para configuração do webpack, vamos instalar a lib webpack-dev-server que traz a função de assistir(watch) os arquivos do projeto em ambiente de desenvolvimento e cross-env que auxilia na definição de variaveis de ambiente independente do sistema operacional que irá rodar a aplicação.
@@ -155,6 +163,7 @@ Agora podemos criar o arquivo de configuração do webpack, para isso criamos um
 ```js
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 
 const isDevelopment = process.env.NODE_ENV !== "production"; // Seleciona qual ambiente a aplicação está
 
@@ -171,15 +180,17 @@ module.exports = {
     extensions: [".js", ".jsx"], // Extenções dos arquivos que o webpack deve gerenciar
   },
   plugins: [
+    isDevelopment && new ReactRefreshWebpackPlugin(), // Plugin que irá manter os estados dos componentes quando a app atualiza em desenvolvimento
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "public", "index.html"), // Plugin para injetar o arquivo bundle.js gerado pelo webpack no public/index.html
     }),
-  ],
+  ].filter(Boolean),
   devServer: {
-    // Configração do webpack-dev-server.
+    // Configuração do webpack-dev-server.
     static: {
       directory: path.resolve(__dirname, "public"), // Aponta para a pasta aonde está o arquivo index.html
     },
+    hot: true, // Configuração necessaria para o plugin react-refresh
   },
   module: {
     // Regras de tratamento do webpack
@@ -188,7 +199,14 @@ module.exports = {
       {
         test: /\.jsx$/, // Buscar todos os arquivo que terminam em .jsx
         exclude: /node_modules/, // Menos os arquivo que estão na pasta node_modules
-        use: "babel-loader", // E use o babel-loader para converter o arquivo em uma versão que qualquer outro navegador conheça
+        use: {
+          loader: "babel-loader", // E use o babel-loader para converter o arquivo em uma versão que qualquer outro navegador conheça
+          options: {
+            plugins: [
+              isDevelopment && require.resolve("react-refresh/babel"), // Adiciona o loader do react-refresh em ambiente de desenvolvimento
+            ].filter(Boolean),
+          },
+        },
       },
       // Regra para entender e converter arquivos css
       {
